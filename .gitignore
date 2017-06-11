@@ -1,1 +1,7 @@
 *~
+mfem-test
+cmake_install.cmake
+Makefile
+CMakeCache.txt
+CMakeFiles/
+
