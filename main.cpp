@@ -219,18 +219,10 @@ int main(int argc, char *argv[])
 
    cout << "Size of linear system: " << A.Height() << endl;
 
-#ifndef MFEM_USE_SUITESPARSE
    // 11. Define a simple symmetric Gauss-Seidel preconditioner and use it to
    //     solve the system Ax=b with PCG.
    GSSmoother M(A);
    PCG(A, M, B, X, 1, 500, 1e-8, 0.0);
-#else
-   // 11. If MFEM was compiled with SuiteSparse, use UMFPACK to solve the system.
-   UMFPackSolver umf_solver;
-   umf_solver.Control[UMFPACK_ORDERING] = UMFPACK_ORDERING_METIS;
-   umf_solver.SetOperator(A);
-   umf_solver.Mult(B, X);
-#endif
 
    // 12. Recover the solution as a finite element grid function.
    a->RecoverFEMSolution(X, *b, x);
@@ -248,7 +240,6 @@ int main(int argc, char *argv[])
    }
 
    visualize_mesh(mesh, x, visualization);
-
 
    // 16. Free the used memory.
    delete a;
