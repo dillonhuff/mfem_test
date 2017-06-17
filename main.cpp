@@ -101,6 +101,18 @@ int main(int argc, char *argv[])
    Mesh *mesh = new Mesh(mesh_file, 1, 1);
    int dim = mesh->Dimension();
 
+   cout << "Mesh dimension = " << dim << endl;
+
+   cout << "Attributes" << endl;   
+   for (auto& att : mesh->attributes) {
+     cout << att << endl;
+   }
+   
+   cout << "Boundary attributes" << endl;   
+   for (auto& att : mesh->bdr_attributes) {
+     cout << att << endl;
+   }
+
    if (mesh->attributes.Max() < 2 || mesh->bdr_attributes.Max() < 2)
    {
       cerr << "\nInput mesh should have at least two materials and "
